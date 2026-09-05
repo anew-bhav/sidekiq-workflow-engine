@@ -1,0 +1,14 @@
+{
+  "name": "brug-sidekiq-workflow-engine",
+  "private": true,
+  "scripts": {
+    "dev": "slidev slides.md --open",
+    "build": "slidev build slides.md --base /talks/sidekiq-workflow-engine/",
+    "export": "slidev export slides.md --output sidekiq-workflow-engine.pdf"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^52.0.0",
+    "@slidev/theme-default": "latest",
+    "playwright-chromium": "^1.62.1"
+  }
+}

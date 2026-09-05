@@ -1,0 +1,10 @@
+# Build output — regenerate with `npm run build`
+deck/dist/
+deck/node_modules/
+
+# Generated practice audio (large, reproducible from TTS_PRACTICE.md)
+audio/
+
+# Never commit API keys. SARVAM_API_KEY belongs in your shell, not the repo.
+.env
+*.local
