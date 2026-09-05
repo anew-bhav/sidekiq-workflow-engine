@@ -1017,18 +1017,18 @@ class: text-center
 
 <div class="mt-12 text-4xl font-bold">Anubhav Jain</div>
 
-<div class="mt-2 text-lg opacity-70">ROLE @ COMPANY</div>
+<div class="mt-2 text-lg opacity-70">Senior Engineer II @ PowerSchool</div>
 
 <div class="mt-10 font-mono text-lg space-y-1 opacity-90">
 
-<div>github.com/HANDLE</div>
-<div>x.com/HANDLE &nbsp;·&nbsp; linkedin.com/in/HANDLE</div>
+<div>github.com/anewbhav</div>
+<div>linkedin.com/in/anew-bhav</div>
 
 </div>
 
 <div class="mt-10 text-base opacity-60">
 
-Slides + both implementations: SHORT-LINK
+Slides + both implementations: anewbhav.dev/talks/sidekiq-workflow-engine
 
 </div>
 
