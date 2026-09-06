@@ -1236,13 +1236,29 @@ Temporalio::Workflow.execute_activity(FetchOrder, id)
 
 <div class="space-y-6 mt-8 text-lg">
 
-<div v-click>**Another runtime.** Not Rails, Postgres, Redis any more. Someone operates this.</div>
+<div v-click>
 
-<div v-click>**Debugging changes shape.** Not a stack trace. An execution history.</div>
+**Another runtime.** Not Rails, Postgres, Redis any more. Someone operates this.
 
-<div v-click>**Versioning becomes first-class.** Old executions in flight when you deploy.</div>
+</div>
 
-<div v-click>**Your organisation has one more thing it must understand.** Every hire. Every incident.</div>
+<div v-click>
+
+**Debugging changes shape.** Not a stack trace. An execution history.
+
+</div>
+
+<div v-click>
+
+**Versioning becomes first-class.** Old executions in flight when you deploy.
+
+</div>
+
+<div v-click>
+
+**Your organisation has one more thing it must understand.** Every hire. Every incident.
+
+</div>
 
 </div>
 
