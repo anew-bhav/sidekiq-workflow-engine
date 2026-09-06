@@ -801,7 +801,7 @@ Temporal · DBOS · Restate · Inngest
 
 </div>
 
-<div v-click class="mt-10 text-lg">
+<div v-click="1" class="mt-10 text-lg">
 
 I picked one, for a boring reason that matters to this room:
 
@@ -809,7 +809,7 @@ I picked one, for a boring reason that matters to this room:
 
 </div>
 
-<div class="absolute bottom-6 left-0 right-0 text-center text-xs opacity-40">
+<div v-click="1" class="absolute bottom-6 left-0 right-0 text-center text-xs opacity-40">
 
 GA announced 1 Oct 2025 · temporal.io/changelog/ruby-sdk-generally-available
 
