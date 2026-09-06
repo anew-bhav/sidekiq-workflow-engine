@@ -152,11 +152,17 @@ Then: it was the right call, I'd do it again tomorrow. But it's the first brick.
 layout: center
 ---
 
-## You can't wrap this in a transaction.
+## The real fix is an idempotency key
 
 <div v-click class="mt-8 text-xl opacity-80">
 
-The payment gateway is not in your database.
+Generate it. Store it. Decide what it's scoped to.
+
+</div>
+
+<div v-click class="mt-6 text-xl">
+
+Another column. Another thing you own.
 
 </div>
 
@@ -164,10 +170,24 @@ The payment gateway is not in your database.
 <StatusEnum :stage="2" />
 
 <!--
-PREEMPT "just use a transaction" — NOT DROPPABLE.
-"...and for most of us that's genuinely upsetting, because it's been the thing
-that saves us since we started writing Rails." [LAUGH]
-The moment a step touches the outside world, the transaction boundary stops helping.
+*** THIS REPLACED A STRAWMAN. Do not go back to "just use a transaction" —
+a room of Rails devs will say nobody would do that anyway, and then the whole
+first half looks rigged. Steelman it instead. ***
+
+SAY:
+  "Now, the actual answer here isn't a transaction. You can't wrap a call to a
+   payment gateway in one anyway, because the gateway isn't in your database.
+   The real answer is an idempotency key. You generate a key, you send it with
+   the charge, the gateway dedupes it for you. That is correct, and you should
+   do it."
+  [CLICK]
+  "And it's a key you generate. Store. And decide the scope of. Is it per order?
+   Per attempt? Per retry?"
+  [CLICK]
+  "Another column. Another thing you own."
+
+This is now STRONGER than the version it replaced, because you conceded the
+expert's point and it still ends up on the pile. Concede fast and mean it.
 -->
 
 ---

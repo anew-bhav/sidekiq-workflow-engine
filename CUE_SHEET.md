@@ -31,9 +31,11 @@ Worker dies. Sidekiq retries. Charges twice.
 Guards. CLICK → nobody asked for charged_at / no PM ticket. CLICK → **"not info about the order, info about how far the job got."**
 Right call. I'd do it again. First brick.
 
-**7 · No transaction** ▸1
-"The instinct is to wrap it in a transaction. I've written that."
-CLICK → gateway isn't in your DB. DB rolls back, gateway doesn't. **NOT DROPPABLE.**
+**7 · Idempotency key** ▸2 **NOT DROPPABLE**
+"The actual answer isn't a transaction, the gateway isn't in your DB. It's an idempotency key. Send it with the charge, gateway dedupes. That's correct, you should do it."
+CLICK → "A key you generate. Store. And scope. Per order? Per attempt? Per retry?"
+CLICK → **"Another column. Another thing you own."**
+*(Concede fast and mean it. This is the expert's answer, and it still lands on the pile.)*
 
 **8 · Failure 2** ▸0
 Two days. Thread, timeout, killed by next deploy (~11 min away). "sleep 2.days. Usually a joke. Usually."

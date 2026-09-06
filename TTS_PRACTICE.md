@@ -171,9 +171,13 @@ We just persisted execution state into our domain model. And it was the right ca
 But it's the first brick.
 <break time="1.0s"/>
 
-And no, you can't wrap this in a transaction. Because the payment gateway is not in your database.
+Now, the actual answer here isn't a transaction. You can't wrap a call to a payment gateway in one anyway, because the gateway isn't in your database.
 
-That's the entire problem. The moment a step touches the outside world, ActiveRecord dot transaction stops being the thing that saves you. And for most of us that's genuinely upsetting, because it's been the thing that saves us since we started writing Rails.
+The real answer is an idempotency key. You generate a key, you send it with the charge, and the gateway dedupes it for you. That is correct. And you should do it.
+<break time="1.0s"/>
+And it's a key you generate. Store. And decide the scope of. Is it per order? Per attempt? Per retry?
+<break time="1.0s"/>
+Another column. Another thing you own.
 <break time="2.0s"/>
 
 ---

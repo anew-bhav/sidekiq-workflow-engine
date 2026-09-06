@@ -174,9 +174,19 @@ Never comment on it. Let people notice. The word `stuck` at the end does the wor
 >
 > `JUST × 1`
 
-**[PREEMPT: "just use a transaction"]** — say it here, out loud:
+**[PREEMPT: the expert's real objection]** — this used to be a "you can't use a transaction" strawman. It isn't any more, because a room of Rails developers will correctly say nobody would do that, and then your whole first half looks rigged. Steelman it instead: name the answer a good engineer actually gives, concede it fully, and show that it *still* adds a brick. Concede fast and mean it.
 
-> And no, you can't wrap this in a transaction, because the payment gateway is not in your database. That's the entire problem. The moment a step touches the outside world, `ActiveRecord::Base.transaction` stops being the thing that saves you — and for most of us that's genuinely upsetting, because it's been the thing that saves us since we started writing Rails. **[LAUGH]**
+> Now, the actual answer here isn't a transaction. You can't wrap a call to a payment gateway in one anyway, because the gateway isn't in your database.
+>
+> The real answer is an idempotency key. You generate a key, you send it with the charge, and the gateway dedupes it for you. That is correct, and you should do it.
+>
+> *(click)*
+>
+> And it's a key you generate. Store. And decide the scope of. Is it per order? Per attempt? Per retry?
+>
+> *(click)*
+>
+> Another column. Another thing you own.
 
 ### 5:15 — Failure #2: warehouse takes two days (2:15)
 
