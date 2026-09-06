@@ -1019,7 +1019,7 @@ class: text-center
 
 <div class="mt-10 font-mono text-lg space-y-1 opacity-90">
 
-<div>github.com/anewbhav</div>
+<div>x.com/anewbhav</div>
 <div>linkedin.com/in/anew-bhav</div>
 
 </div>
