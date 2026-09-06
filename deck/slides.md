@@ -1017,8 +1017,6 @@ class: text-center
 
 <div class="mt-12 text-4xl font-bold">Anubhav Jain</div>
 
-<div class="mt-2 text-lg opacity-70">Senior Engineer II @ PowerSchool</div>
-
 <div class="mt-10 font-mono text-lg space-y-1 opacity-90">
 
 <div>github.com/anewbhav</div>
