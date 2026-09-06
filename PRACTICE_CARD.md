@@ -50,10 +50,11 @@ Click → reconciler row appears with a dash → beat → **"There isn't a row f
 
 ## OPENING 40 SECONDS (the hardest part — know it cold)
 
-> It's Sunday. It's six pm. And you are in a room, voluntarily, to hear about
-> background jobs.
-> I see that. I've also structured this to be shorter than getting from
-> Koramangala to Whitefield. *[laugh]*
+> Quick one before I start. Hands up if you travelled more than an hour to
+> get here tonight. *[look]*
+> More than two? *[laugh]*
+> Right. HSR on a Sunday evening, and you picked this over dinner. Thank you,
+> genuinely. I'll try to make it worth the auto fare. *[laugh]*
 >
 > Two questions. Hands up.
 > One: who runs Sidekiq in production? *[look]*

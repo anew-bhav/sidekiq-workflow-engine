@@ -68,9 +68,13 @@ Never comment on it. Let people notice. The word `stuck` at the end does the wor
 
 ## 0:00 — 0:45 · POLL
 
-> It's Sunday. It's six pm. You are in a room, voluntarily, to hear about background jobs.
+> Quick one before I start. Hands up if you travelled more than an hour to get here tonight.
 >
-> I want you to know that I see that, and that I've also structured this talk to be shorter than getting from Koramangala to Whitefield. **[LAUGH]**
+> *(look at the hands)*
+>
+> More than two? **[LAUGH]**
+>
+> Right. HSR on a Sunday evening, and you picked this over dinner. Thank you, genuinely. I'll try to make it worth the auto fare. **[LAUGH]**
 >
 > Two questions before I start. Hands up.
 >
@@ -135,7 +139,7 @@ Never comment on it. Let people notice. The word `stuck` at the end does the wor
 > end
 > ```
 >
-> Three steps, one job, top to bottom. Genuinely fine. Ships Monday. Nobody objects in review.
+> Three steps, one job, top to bottom. Genuinely fine. Nobody argues with it in review.
 >
 > Then reality shows up. Five times. Like it does.
 

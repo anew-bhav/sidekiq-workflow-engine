@@ -1,7 +1,7 @@
 ---
 theme: default
 title: Your Sidekiq Jobs Have Become a Workflow Engine
-info: BRUG — 6 Sep 2026
+info: BRUG, 6 Sep 2026
 class: text-center
 transition: none
 mdc: true
@@ -20,7 +20,17 @@ fonts:
 <!--
 GATES: 10:00 realization · 15:00 demo starts · 20:00 demo ends
 PROTECT: program counter (~7:15), ME→RUNTIME (~15:00), the demo.
-Open with the Sunday/traffic line. Then the two poll questions. LOOK at the hands.
+OPENER (spoken, before the poll slide). They did NOT know the topic before
+arriving, so do not joke about background jobs yet. Build rapport on the one
+thing everyone here shares: getting to HSR on a Sunday.
+
+  "Quick one before I start. Hands up if you travelled more than an hour
+   to get here tonight."   [look at the hands]
+  "More than two?"   [laugh]
+  "Right. HSR on a Sunday evening, and you picked this over dinner.
+   Thank you, genuinely. I'll try to make it worth the auto fare."   [LAUGH]
+
+THEN the poll slide. LOOK at the hands both times.
 -->
 
 ---
@@ -77,7 +87,7 @@ class ProcessOrderJob
 end
 ```
 
-<div v-click class="mt-6 opacity-70">Three steps. One job. Ships Monday.</div>
+<div v-click class="mt-6 opacity-70">Three steps. One job. Nobody argues with it in review.</div>
 
 <StatusEnum :stage="1" />
 
@@ -105,7 +115,7 @@ DROP THIS JOKE FIRST if running long.
 
 ---
 
-# Idempotent — safe to run twice
+# Idempotent: safe to run twice
 
 ```ruby {3-5}
 def perform(order_id)
@@ -220,7 +230,7 @@ class: text-center
 
 I'm not saying the code got ugly. The code is fine.
 
-I'm saying we **introduced a concept** — and nobody decided to.
+I'm saying we **introduced a concept**, and nobody decided to.
 
 </div>
 
@@ -264,7 +274,7 @@ class: text-center
 
 <div v-click class="mt-8 font-mono text-sm opacity-70">
 
-\# TODO: remove after migration — Mar 2024
+\# TODO: remove after migration, Mar 2024
 
 </div>
 
@@ -287,7 +297,7 @@ class: text-center
 
 <div v-click class="mt-8 opacity-70">
 
-Compensation — the undo you write yourself.
+Compensation: the undo you write yourself.
 
 </div>
 
@@ -466,7 +476,7 @@ Say it slowly. NO JOKE AFTER THIS. Let the silence do the punctuation.
 
 ---
 
-# Yes — these exist
+# Yes, these exist
 
 <div class="text-xl mt-8 font-mono opacity-90 leading-relaxed">
 
@@ -558,11 +568,11 @@ Not comparing them. One case study, chosen for Ruby relevance.
 
 <div class="mt-10 space-y-8 text-xl">
 
-<div><span class="font-bold">Workflow</span> — decides what happens next. Your orchestration.</div>
+<div><span class="font-bold">Workflow</span>: decides what happens next. Your orchestration.</div>
 
-<div v-click><span class="font-bold">Activity</span> — touches the outside world. Charge the card.</div>
+<div v-click><span class="font-bold">Activity</span>: touches the outside world. Charge the card.</div>
 
-<div v-click><span class="font-bold">Worker</span> — the process you run that executes both.</div>
+<div v-click><span class="font-bold">Worker</span>: the process you run that executes both.</div>
 
 </div>
 
@@ -864,7 +874,7 @@ That table made it look free. It is not.
 # Determinism
 
 ```ruby
-# Inside workflow code — replay breaks all of these
+# Inside workflow code. Replay breaks all of these
 Time.now
 SecureRandom.uuid
 rand(100)
@@ -878,7 +888,7 @@ Temporalio::Workflow.execute_activity(FetchOrder, id)
 
 <div v-click class="mt-6 text-lg">
 
-`Time.now`. `Order.find`. The two most ordinary things in Rails — and inside a workflow they're bugs.
+`Time.now`. `Order.find`. The two most ordinary things in Rails. Inside a workflow, they're bugs.
 
 </div>
 
@@ -902,7 +912,7 @@ for a distributed systems paper." [LAUGH — one joke max here, don't undercut i
 
 <div v-click>**Another runtime.** Not Rails, Postgres, Redis any more. Someone operates this.</div>
 
-<div v-click>**Debugging changes shape.** Not a stack trace — an execution history.</div>
+<div v-click>**Debugging changes shape.** Not a stack trace. An execution history.</div>
 
 <div v-click>**Versioning becomes first-class.** Old executions in flight when you deploy.</div>
 
@@ -990,7 +1000,7 @@ That job you thought of when I asked at the start.
 
 <div v-click class="text-xl opacity-80 mt-4">
 
-If there's a comment on it with someone's name, and that person doesn't work there any more —
+If there's a comment on it with someone's name, and that person doesn't work there any more,
 
 </div>
 
@@ -1013,7 +1023,7 @@ layout: center
 class: text-center
 ---
 
-<div class="text-2xl opacity-60">So — where would you draw the line?</div>
+<div class="text-2xl opacity-60">So, where would you draw the line?</div>
 
 <div class="mt-12 text-4xl font-bold">Anubhav Jain</div>
 
@@ -1063,14 +1073,14 @@ layout: default
 
 <div>
 
-**Temporal** — temporal.io · [Ruby SDK GA announcement, 1 Oct 2025](https://temporal.io/changelog/ruby-sdk-generally-available) · [github.com/temporalio/sdk-ruby](https://github.com/temporalio/sdk-ruby) · [docs.temporal.io/develop/ruby](https://docs.temporal.io/develop/ruby)
+**Temporal**: temporal.io · [Ruby SDK GA announcement, 1 Oct 2025](https://temporal.io/changelog/ruby-sdk-generally-available) · [github.com/temporalio/sdk-ruby](https://github.com/temporalio/sdk-ruby) · [docs.temporal.io/develop/ruby](https://docs.temporal.io/develop/ruby)
 Code on these slides verified against gem `temporalio` 1.6.0.
 
 </div>
 
 <div>
 
-**Sidekiq** — Mike Perham / Contributed Systems · [sidekiq.org](https://sidekiq.org) · [Batches (Pro)](https://github.com/sidekiq/sidekiq/wiki/Batches)
+**Sidekiq**: Mike Perham / Contributed Systems · [sidekiq.org](https://sidekiq.org) · [Batches (Pro)](https://github.com/sidekiq/sidekiq/wiki/Batches)
 
 </div>
 
@@ -1083,7 +1093,7 @@ Code on these slides verified against gem `temporalio` 1.6.0.
 
 <div>
 
-**Other durable execution runtimes** — [DBOS](https://dbos.dev) · [Restate](https://restate.dev) · [Inngest](https://inngest.com)
+**Other durable execution runtimes**: [DBOS](https://dbos.dev) · [Restate](https://restate.dev) · [Inngest](https://inngest.com)
 
 </div>
 

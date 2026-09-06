@@ -87,9 +87,11 @@ Cue legend — for you, not to be spoken:
 
 ## CHUNK 1 — Open (target 2:00)
 
-It's Sunday. It's six pm. And you are in a room, voluntarily, to hear about background jobs.
-
-I want you to know that I see that. And that I've structured this talk to be shorter than getting from Koramangala to Whitefield.
+Quick one before I start. Hands up if you travelled more than an hour to get here tonight.
+<break time="2.0s"/>
+More than two?
+<break time="2.0s"/>
+Right. HSR on a Sunday evening, and you picked this over dinner. Thank you, genuinely. I'll try to make it worth the auto fare.
 <break time="2.0s"/>
 
 Two questions before I start. Hands up.
