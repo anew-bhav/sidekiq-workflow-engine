@@ -158,7 +158,7 @@ class: text-center
  noticing this. They have never once emailed to say, you charged
  me half as much as I expected."
    [LAUGH]
-   ✂ SACRIFICIAL — this is the joke to drop if you're running long.
+   *** ✂ SACRIFICIAL — the joke to drop first if you're running long. ***
 -->
 ---
 
@@ -235,7 +235,7 @@ Another column. Another thing you own.
 <StatusEnum :stage="2" />
 
 <!--
-CONCEDE FAST AND MEAN IT. This is the expert's own answer.
+*** CONCEDE FAST, AND MEAN IT. THIS IS THE EXPERT'S OWN ANSWER. ***
 
 "Now, the actual answer here isn't a transaction. You can't wrap
  a call to a payment gateway in one anyway, because the gateway
@@ -315,7 +315,7 @@ We had no way to wait, so we built waiting out of a scheduler and a queue.
  laptop right now."
    [LAUGH]
 
-CONCEDE IMMEDIATELY — someone is already thinking it:
+*** CONCEDE IMMEDIATELY — someone is already thinking it: ***
 "And yes, you'd schedule one job for when you actually expect it,
  not poll every hour. That's better. I'd do that too."
 "Either way, the job is now two jobs. And where it resumes lives
@@ -347,7 +347,7 @@ I'm saying we **introduced a concept**, and nobody decided to.
 <StatusEnum :stage="3" />
 
 <!--
-🔒 PROTECT. CONCEPTUAL PEAK OF THE FIRST HALF. SLOW DOWN.
+*** 🔒 PROTECT — CONCEPTUAL PEAK OF THE FIRST HALF. SLOW DOWN. ***
 
 "The status column isn't describing the order any more. It's
  telling the next job where to resume."
@@ -385,7 +385,7 @@ class: text-center
 <Just :n="3" />
 
 <!--
-CONCEDE THE EASY PART FIRST:
+*** CONCEDE THE EASY PART FIRST: ***
 
 "Failure three. The warehouse sends a callback instead. Better."
 
@@ -424,7 +424,7 @@ class: text-center
 <Just :n="4" />
 
 <!--
-✂ WEAKEST OF THE FIVE. CUT THIS FIRST, WITHOUT REGRET.
+*** ✂ WEAKEST OF THE FIVE. CUT THIS FIRST, WITHOUT REGRET. ***
 The objection is correct: you add a new job class, you don't
 change args incompatibly. Do NOT argue payload versioning.
 
@@ -549,7 +549,7 @@ This comment returns in the final slide.
 <Just :n="7" big />
 
 <!--
-🎯 THE BIGGEST LAUGH IN THE TALK.
+*** 🎯 THE BIGGEST LAUGH IN THE TALK. ***
 
 "So let's put it on one slide. Not the business logic. Just the
  machinery we added to keep the process alive."
@@ -684,7 +684,7 @@ class: text-center
 # A workflow is what a job gradually turns into.
 
 <!--
-🔒 THE BEGINNERS' TAKEAWAY. The sentence they repeat on Monday.
+*** 🔒 THE BEGINNERS' TAKEAWAY — the sentence they repeat on Monday. ***
 
 "A workflow is what a job gradually turns into."
 
@@ -722,7 +722,7 @@ Batches (Sidekiq Pro) · acidic_job, @fractaledmind · Gush, Chaps · AASM · St
 </div>
 
 <!--
-PREEMPT — THE #1 Q&A AMBUSH. This must come BEFORE Temporal.
+*** PREEMPT — THE #1 Q&A AMBUSH. MUST COME BEFORE TEMPORAL. ***
 
 "Now. Some of you have been quietly furious for about five
  minutes, going: yes, and that's why Sidekiq Pro has Batches."
@@ -890,7 +890,7 @@ end
 ```
 
 <!--
-CAREFUL — this is the slide where a talk becomes an ad.
+*** CAREFUL — THIS IS THE SLIDE WHERE A TALK BECOMES AN AD. ***
 
 "Now, the same process, written against that runtime."
 
@@ -928,8 +928,8 @@ Syntax verified against gem temporalio 1.6.0.
 </div>
 
 <!--
-THE BRIDGE. More persuasive than the code slide. ~6 sec per row.
-Point, don't teach.
+*** THE BRIDGE — more persuasive than the code slide.
+    ~6 sec per row. Point, don't teach. ***
 
 "And before anyone has to decode that — you already wrote all of
  this. Every line of it. Just in a different shape."
@@ -986,7 +986,7 @@ Here: **the runtime**.
 </div>
 
 <!--
-🔒 PROTECT. EMOTIONAL CENTRE OF THE SECOND HALF.
+*** 🔒 PROTECT — EMOTIONAL CENTRE OF THE SECOND HALF. ***
 
 "So here's the actual comparison, and it isn't about syntax."
 
@@ -1026,7 +1026,7 @@ class: text-center
 <div class="mt-8 opacity-70">Same requirements. Same five failures. Both broken on purpose.</div>
 
 <!--
-⏱ 15:00 GATE. THE DEMO IS THE CENTRE OF GRAVITY — DO NOT RUSH IT.
+*** ⏱ 15:00 GATE — THE DEMO IS THE CENTRE OF GRAVITY. DO NOT RUSH IT. ***
 If you're behind, you already cut failure 4. Cut more BEFORE this,
 never compress what's on screen.
 
@@ -1132,7 +1132,7 @@ The question is whether it was **you**, at 2am.
 </div>
 
 <!--
-✂ CUT THIS SLIDE if you reach it after 18:30.
+*** ✂ CUT THIS SLIDE if you reach it after 18:30. ***
 
 "Second. The warehouse fires the callback twice."
 
@@ -1238,7 +1238,7 @@ class: text-center
 # Okay. What did we just buy?
 
 <!--
-⏱ 20:00 GATE. You should be off the demo by now.
+*** ⏱ 20:00 GATE — you should be off the demo by now. ***
 
 "So that's the good part."
    [BEAT]
@@ -1269,12 +1269,12 @@ Temporalio::Workflow.execute_activity(FetchOrder, id)
 </div>
 
 <!--
-🔒 NEVER CUT THIS SLIDE. It's what makes the trade-off credible.
+*** 🔒 NEVER CUT THIS SLIDE — it's what makes the trade-off credible. ***
 
 "The one you hit on day one. Determinism."
 
-SAY THIS SENTENCE EXACTLY — the loose version is wrong and people
-here will go implement it:
+*** SAY THIS SENTENCE EXACTLY. The loose version is wrong, and
+    people here will go and implement it: ***
 "Workflow code is not ordinary Ruby. The runtime reconstructs the
  workflow's state by replaying its recorded history against your
  workflow code. So your code has to produce the same decisions,
@@ -1419,7 +1419,7 @@ class: text-center
 # An abstraction is useful right up until you start implementing the abstraction it was supposed to give you.
 
 <!--
-🔒 THE EXPERTS' TAKEAWAY. The thesis. Say it slowly.
+*** 🔒 THE EXPERTS' TAKEAWAY — THE THESIS. SAY IT SLOWLY. ***
 
 "The idea I want to leave you with isn't about Temporal at all."
 
@@ -1458,7 +1458,7 @@ Is that still a job?
 </div>
 
 <!--
-🔒 THE LANDING. DO NOT IMPROVISE THIS.
+*** 🔒 THE LANDING — DO NOT IMPROVISE THIS. ***
 
 "So. That job you thought of when I asked at the start. The one
  some of you raised your hand for very fast."
@@ -1571,7 +1571,7 @@ taken from any employer's system. No affiliation with Temporal or any project li
 </div>
 
 <!--
-APPENDIX — DO NOT PRESENT.
+*** APPENDIX — DO NOT PRESENT. ***
 Exists so the published deck carries its sources.
 All URLs verified 200 on 6 Sep 2026.
 -->
