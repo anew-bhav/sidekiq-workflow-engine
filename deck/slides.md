@@ -1423,8 +1423,8 @@ class: text-center
 
 <div class="mt-10 font-mono text-lg space-y-1 opacity-90">
 
-<div>x.com/anewbhav</div>
-<div>linkedin.com/in/anew-bhav</div>
+<div>x.com/_anewbhav_</div>
+<div>linkedin.com/in/anewbhav</div>
 
 </div>
 
