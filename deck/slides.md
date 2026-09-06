@@ -18,21 +18,21 @@ fonts:
 <div class="opacity-50 mt-4">BRUG · Sunday, 6 September 2026</div>
 
 <!--
-GATES: 10:00 realization · 15:00 demo starts · 20:00 demo ends
-PROTECT: program counter (~7:15), ME→RUNTIME (~15:00), the demo.
-OPENER (spoken, before the poll slide). They did NOT know the topic before
-arriving, so do not joke about background jobs yet. Build rapport on the one
-thing everyone here shares: getting to HSR on a Sunday.
+GATES 10:00 realization · 15:00 demo · 20:00 demo ends
 
-  "Quick one before I start. Hands up if you travelled more than an hour
-   to get here tonight."   [look at the hands]
-  "More than two?"   [laugh]
-  "Right. HSR on a Sunday evening, and you picked this over dinner.
-   Thank you, genuinely. I'll try to make it worth the auto fare."   [LAUGH]
+SPOKEN, before you touch the slides:
 
-THEN the poll slide. LOOK at the hands both times.
+"Quick one before I start. Hands up if you travelled more than
+ an hour to get here tonight."
+   [LOOK at the hands]
+"More than two?"
+   [LAUGH]
+"Right. HSR on a Sunday evening, and you picked this over dinner.
+ Thank you, genuinely. I'll try to make it worth the auto fare."
+   [LAUGH]
+
+Do NOT joke about background jobs yet. They don't know the topic.
 -->
-
 ---
 layout: center
 ---
@@ -48,12 +48,24 @@ layout: center
 </div>
 
 <!--
-Wait for hands both times. Actually look.
-"Some of you put your hand up VERY fast." [LAUGH]
-"Keep that job in your head. We're going to go find it."
-This poll is called back in the final slide — it is what makes the ending land.
--->
+"Two questions before I start. Hands up."
 
+"One. Who runs Sidekiq in production?"
+   [LOOK. Wait for it.]
+"Right. Most of the room."
+
+▸ CLICK
+
+"Two, and this is the real one. Who has a Sidekiq job with a
+ state machine inside it?"
+   [LOOK. Fewer hands, more laughing.]
+"Some of you put your hand up very fast."
+   [LAUGH]
+
+"Keep that job in your head. We're going to go find it."
+
+^ This poll is called back in the final slide.
+-->
 ---
 layout: center
 ---
@@ -65,11 +77,29 @@ GenerateInvoiceJob.perform_async(invoice.id)
 <div v-click class="text-center mt-10 text-2xl opacity-80">This is good code.</div>
 
 <!--
-No twist coming. Sidekiq is great, Mike Perham is a national treasure of a country
-I don't live in. [LAUGH]
-PREEMPT "this is a vendor pitch" — kill it in the first 90 seconds.
--->
+"Let me start somewhere completely uncontroversial."
 
+"That's it. Something happened in a request, we don't want to do
+ it in the request, so we push it to a queue."
+
+▸ CLICK
+
+"This is good code."
+   [BEAT]
+
+"I want to be clear about that, because the title has Sidekiq in
+ it, and you're all waiting for the part where I tell you it's bad."
+
+"That part isn't coming. There's no twist. Sidekiq is great, and
+ Mike Perham is a national treasure of a country I don't live in."
+   [LAUGH]
+
+"If your problem fits on that one line, write that line and go home."
+
+"I'm not going to manufacture a problem so I can sell you a
+ solution. We're going to follow one process. One. And see where
+ it takes us."
+-->
 ---
 
 # Order fulfillment
@@ -92,11 +122,20 @@ end
 <StatusEnum :stage="1" />
 
 <!--
-SAY FIRST: "Half this room has built this. Watch which step you stopped at."
-Then pause half a beat. This converts experts from bored into self-auditing.
-Then: "Reality shows up. Five times. Like it does."
--->
+"The process is order fulfillment. And before I start —"
 
+"HALF THIS ROOM HAS BUILT THIS. WATCH WHICH STEP YOU STOPPED AT."
+   [BEAT. This turns the experts from bored into self-auditing.]
+
+"Version one. Charge the payment, reserve the inventory, ship it.
+ Three steps, one job, top to bottom."
+
+▸ CLICK
+
+"Genuinely fine. Nobody argues with it in review."
+
+"Then reality shows up. Five times. Like it does."
+-->
 ---
 layout: center
 class: text-center
@@ -107,12 +146,20 @@ class: text-center
 ## Payment succeeds. Worker dies.
 
 <!--
-Box recycled, deploy, OOM, someone ran a migration on a Friday.
-Sidekiq retries. perform runs from the top. Charges the customer twice.
-[LAUGH — SACRIFICIAL] customers never email to say you charged them half.
-DROP THIS JOKE FIRST if running long.
--->
+"Failure one. Payment succeeds. The worker dies."
 
+"Box gets recycled. Deploy goes out. The OOM killer. Someone ran
+ a migration on a Friday. Doesn't matter which."
+
+"Sidekiq does the correct thing. It retries. So perform runs
+ again, from the top. And charges the customer a second time."
+
+"Now, the customer notices this. Customers are extremely good at
+ noticing this. They have never once emailed to say, you charged
+ me half as much as I expected."
+   [LAUGH]
+   ✂ SACRIFICIAL — this is the joke to drop if you're running long.
+-->
 ---
 
 # Idempotent: safe to run twice
@@ -143,11 +190,29 @@ That's information about **how far along the job got**.
 <StatusEnum :stage="2" />
 
 <!--
-"No PM has ever written a ticket that says: as a user I want a boolean
-indicating how far through a Sidekiq job I got." [LAUGH]
-Then: it was the right call, I'd do it again tomorrow. But it's the first brick.
--->
+"So we make it idempotent. Idempotent meaning safe to run twice."
 
+"And to be safe to run twice, the job has to know what it already
+ did. Which means it has to write down what it already did."
+
+"So we add three columns, and guard each step on its column."
+
+▸ CLICK
+
+"Nobody in the business asked for charged_at. No product manager
+ has ever written a ticket that says: as a user, I want a boolean
+ indicating how far through a Sidekiq job I got."
+   [LAUGH]
+
+▸ CLICK
+
+"That is not information about the order."
+   [BEAT]
+"That is information about how far along the job got."
+
+"We persisted execution state into our domain model. And it was
+ the right call. I'd do it again tomorrow. But it's the first brick."
+-->
 ---
 layout: center
 ---
@@ -170,26 +235,28 @@ Another column. Another thing you own.
 <StatusEnum :stage="2" />
 
 <!--
-*** THIS REPLACED A STRAWMAN. Do not go back to "just use a transaction" —
-a room of Rails devs will say nobody would do that anyway, and then the whole
-first half looks rigged. Steelman it instead. ***
+CONCEDE FAST AND MEAN IT. This is the expert's own answer.
 
-SAY:
-  "Now, the actual answer here isn't a transaction. You can't wrap a call to a
-   payment gateway in one anyway, because the gateway isn't in your database.
-   The real answer is an idempotency key. You generate a key, you send it with
-   the charge, the gateway dedupes it for you. That is correct, and you should
-   do it."
-  [CLICK]
-  "And it's a key you generate. Store. And decide the scope of. Is it per order?
-   Per attempt? Per retry?"
-  [CLICK]
-  "Another column. Another thing you own."
+"Now, the actual answer here isn't a transaction. You can't wrap
+ a call to a payment gateway in one anyway, because the gateway
+ isn't in your database."
 
-This is now STRONGER than the version it replaced, because you conceded the
-expert's point and it still ends up on the pile. Concede fast and mean it.
+"The real answer is an idempotency key. You generate a key, you
+ send it with the charge, and the gateway dedupes it for you.
+ That is correct, and you should do it."
+
+▸ CLICK
+
+"And it's a key you generate. Store. And decide the scope of.
+ Is it per order? Per attempt? Per retry?"
+
+▸ CLICK
+
+"Another column. Another thing you own."
+
+NOT DROPPABLE. Do not go back to a 'you can't use a transaction'
+strawman — the room would be right to reject it.
 -->
-
 ---
 layout: center
 class: text-center
@@ -200,11 +267,19 @@ class: text-center
 ## The warehouse takes two days.
 
 <!--
-A worker can't sit for two days. Thread, timeout, killed by the next deploy —
-which at most companies is about eleven minutes away. [LAUGH]
-"Somebody always suggests `sleep 2.days` at this point. Usually as a joke. Usually."
--->
+"Failure two. The warehouse takes two days to confirm."
 
+"A worker cannot sit there for two days. It's a thread. It has a
+ timeout. And it will be killed by the next deploy, which at most
+ companies is about eleven minutes away."
+   [LAUGH]
+
+"Somebody always suggests sleep two days at this point. Usually
+ as a joke."
+   [BEAT]
+"Usually."
+   [LAUGH]
+-->
 ---
 
 # A job that schedules itself
@@ -232,19 +307,25 @@ We had no way to wait, so we built waiting out of a scheduler and a queue.
 <StatusEnum :stage="3" />
 
 <!--
-"All of you have written this. Some of you wrote it this week. Some of you are
-looking at your laptop right now." [LAUGH]
+"So we split the job. If the warehouse is ready, ship it.
+ Otherwise, schedule myself again in an hour."
 
-CONCEDE IMMEDIATELY (someone is already thinking it):
-  "And yes, you'd schedule one job for when you actually expect it, not poll
-   every hour. That's better. I'd do that too."
-  "Either way, the job is now two jobs. And where it resumes lives outside
-   the code, in a column."
+"A job that schedules itself. All of you have written this. Some
+ of you wrote it this week. Some of you are looking at your
+ laptop right now."
+   [LAUGH]
 
-That concession is what makes the program-counter line land as an observation
-instead of a setup. Do NOT defend the polling version.
+CONCEDE IMMEDIATELY — someone is already thinking it:
+"And yes, you'd schedule one job for when you actually expect it,
+ not poll every hour. That's better. I'd do that too."
+"Either way, the job is now two jobs. And where it resumes lives
+ outside the code, in a column."
+
+▸ CLICK
+
+"That's a timer. We had no way to wait, so we built waiting out
+ of the parts we had. A scheduler, and a queue."
 -->
-
 ---
 layout: center
 class: text-center
@@ -266,12 +347,30 @@ I'm saying we **introduced a concept**, and nobody decided to.
 <StatusEnum :stage="3" />
 
 <!--
-*** PROTECT — CONCEPTUAL PEAK OF THE FIRST HALF. DO NOT COMPRESS. ***
-Say "program counter" → PAUSE → the reframe → PAUSE again.
-Not an aesthetic argument (dismissible). A conceptual one (isn't).
-This is what makes the realization at 9:30 feel inevitable rather than asserted.
--->
+🔒 PROTECT. CONCEPTUAL PEAK OF THE FIRST HALF. SLOW DOWN.
 
+"The status column isn't describing the order any more. It's
+ telling the next job where to resume."
+
+"It's a program counter."
+   [BEAT — let it sit]
+
+▸ CLICK
+
+"In your orders table. With an index on it."
+   [BEAT]
+
+▸ CLICK
+
+"And I want to be precise about what I'm claiming. I'm not saying
+ our Rails code got ugly. The code is fine. The code is nice."
+
+"I'm saying we introduced a concept."
+   [BEAT]
+"And nobody decided to."
+
+You index it so a cron can find crashed programs. That's the tell.
+-->
 ---
 layout: center
 class: text-center
@@ -287,19 +386,26 @@ class: text-center
 
 <!--
 CONCEDE THE EASY PART FIRST:
-  "Dedup is easy. Unique index on the token, five lines, done. That's not the
-   interesting bit."
-  "The interesting bit is the callback that arrives BEFORE you've committed
-   the row."
 
-THEN: "...and you get `undefined method for nil:NilClass`, which as we all know
-is the national anthem of this ecosystem." [LAUGH]
-Fix it with a lock, or a retry, or a `sleep 0.5` you tell nobody about.
+"Failure three. The warehouse sends a callback instead. Better."
 
-Never imply dedup is hard. The room knows it isn't, and claiming otherwise
-costs you the next two minutes.
+"Dedup is easy. Unique index on the token, five lines, done.
+ That's not the interesting bit."
+
+"The interesting bit is the callback that arrives BEFORE you've
+ committed the row."
+
+"And then you get: undefined method for nil, NilClass. Which, as
+ we all know, is the national anthem of this ecosystem."
+   [LAUGH]
+
+▸ CLICK
+
+"And you fix it with a lock. Or a retry. Or a sleep zero point
+ five that you tell nobody about."
+
+Never imply dedup is hard. The room knows it isn't.
 -->
-
 ---
 layout: center
 class: text-center
@@ -318,18 +424,22 @@ class: text-center
 <Just :n="4" />
 
 <!--
-*** WEAKEST OF THE FIVE. CUT THIS FIRST, AND WITHOUT REGRET. ***
-The objection is correct and someone will make it: you never change job args
-incompatibly, you add a new job class. Standard practice, and it works.
+✂ WEAKEST OF THE FIVE. CUT THIS FIRST, WITHOUT REGRET.
+The objection is correct: you add a new job class, you don't
+change args incompatibly. Do NOT argue payload versioning.
 
-IF YOU KEEP IT, do not argue about payload versioning. Say the one thing that
-is unarguably true and move on in ten seconds:
-  "In-flight processes outlive the code that started them. However you handle
-   that, you are handling it."
+IF KEEPING IT — ten seconds, one unarguable line:
 
-Then go straight to failure five. Do not linger here.
+"Failure four. We deploy mid-flight. There are orders in the
+ queue right now, halfway through."
+
+▸ CLICK
+
+"In-flight processes outlive the code that started them. However
+ you handle that, you are handling it."
+
+Then go straight to failure five. Do not linger.
 -->
-
 ---
 layout: center
 class: text-center
@@ -348,10 +458,18 @@ Compensation: the undo you write yourself.
 <Just :n="5" />
 
 <!--
-Stop a process that isn't running — it's a row in Redis with a timestamp.
-"...usually the week after someone from finance asks a very calm question." [LAUGH]
--->
+"Failure five. The customer cancels. After payment, before
+ shipping."
 
+"Now you have to stop a process that isn't running. It's a row in
+ Redis with a timestamp on it. And you have to undo a charge."
+
+▸ CLICK
+
+"That's compensation. The undo you write yourself. Usually the
+ week after someone from finance asks a very calm question."
+   [LAUGH]
+-->
 ---
 
 # And then someone writes this
@@ -379,14 +497,25 @@ And `git blame` always says it was me.
 <StatusEnum :stage="4" />
 
 <!--
-[LAUGH] on the comment, [LAUGH] on git blame. Naming YOURSELF is what makes
-the two land as one joke: the comment names you, then two lines later git blame
-names you too. Also removes any chance of a real colleague reading it as them.
-git blame line is LOAD-BEARING: it puts you inside the joke, not above it.
-Without it the whole bit reads as mocking their codebase. NEVER CUT IT.
+"And somewhere in here, someone writes this."
+   [Let them read it. Don't read it aloud.]
+
+▸ CLICK
+
+"Every company I've worked at has this job. It always has that
+ comment."
+
+▸ CLICK
+
+"And git blame always says it was me."
+   [LAUGH]
+
+DELIVER BOTH AS ONE JOKE. No pause between them — the second
+line is the reveal. This is what puts you INSIDE the joke rather
+than above it. Never cut the git blame line.
+
 This comment returns in the final slide.
 -->
-
 ---
 
 # <span v-mark.circle.orange="1">What we added</span>
@@ -420,11 +549,18 @@ This comment returns in the final slide.
 <Just :n="7" big />
 
 <!--
-*** THE PAYOFF. BIGGEST LAUGH IN THE TALK. DO NOT TALK OVER IT. Count three beats. ***
-The counter has been in that corner, unremarked, for seven minutes.
-NEXT SLIDE flips the title.
--->
+🎯 THE BIGGEST LAUGH IN THE TALK.
 
+"So let's put it on one slide. Not the business logic. Just the
+ machinery we added to keep the process alive."
+
+[Read the pile briskly. The counter in the corner now reads
+ JUST × 7 — it's been sitting there unremarked for seven minutes.]
+
+   [STOP TALKING. COUNT THREE. DO NOT TALK OVER IT.]
+
+Do not point at the counter. Do not explain the gag.
+-->
 ---
 layout: center
 class: text-center
@@ -443,12 +579,25 @@ We just kept solving the next requirement.
 <Just :n="7" big />
 
 <!--
-Every one of those was a good decision. I'd defend all of them in review.
-"Nobody's name is on it. There was never a ticket that said build workflow engine.
-It arrived one PR at a time over eighteen months, and every one was small enough
-to approve on your phone." [LAUGH]
--->
+"Every one of those was a good decision. I'd defend all of them
+ in code review. None of them is wrong."
 
+"But look at the shape. State. Timers. Retries. External events.
+ Recovery. Compensation."
+   [BEAT]
+"That is not a job any more."
+
+▸ CLICK
+
+"We didn't set out to build a workflow engine. We just kept
+ solving the next requirement."
+
+"And nobody's name is on it. There was never a ticket that said
+ build workflow engine. It arrived one pull request at a time
+ over eighteen months, and every one of them was small enough to
+ approve on your phone."
+   [LAUGH]
+-->
 ---
 layout: center
 ---
@@ -460,9 +609,13 @@ end
 ```
 
 <!--
-[LAUGH]. Short slide. Move on quickly — don't milk it, the big one just landed.
--->
+[Let them read it. Say almost nothing.]
 
+"It usually has a class name too."
+   [LAUGH]
+
+Move quickly. The big one just landed — don't try to top it.
+-->
 ---
 
 # Job vs workflow
@@ -502,10 +655,27 @@ It's a spectrum. Nothing happens when you cross it. Rubocop has no rule for this
 </div>
 
 <!--
-[LAUGH] on the Rubocop line.
-Then: "which is exactly why you end up on the wrong side without noticing."
--->
+"So let me draw the line that actually matters."
 
+"A job says: please do this. Send the email. Resize the image.
+ Sync the record. Short, discrete, retry it as a unit."
+
+▸ CLICK
+
+"A workflow says: make sure this eventually completes.
+ Onboarding. Fulfillment. Payment lifecycle. Those have state,
+ time, events, compensation."
+
+▸ CLICK
+
+"And it's a spectrum, not two boxes. Nothing happens when you
+ cross it. No alarm goes off. Nobody gets paged. Rubocop does not
+ have a rule for this."
+   [LAUGH]
+
+"Which is exactly why you end up on the wrong side of it without
+ noticing."
+-->
 ---
 layout: center
 class: text-center
@@ -514,10 +684,14 @@ class: text-center
 # A workflow is what a job gradually turns into.
 
 <!--
-*** BEGINNERS' TAKEAWAY. The sentence they repeat to a colleague on Monday. ***
-Say it slowly. NO JOKE AFTER THIS. Let the silence do the punctuation.
--->
+🔒 THE BEGINNERS' TAKEAWAY. The sentence they repeat on Monday.
 
+"A workflow is what a job gradually turns into."
+
+SAY IT SLOWLY.
+   [BEAT]
+NO JOKE AFTER THIS. Silence is the punctuation.
+-->
 ---
 
 # Yes, these exist
@@ -548,13 +722,36 @@ Batches (Sidekiq Pro) · acidic_job, @fractaledmind · Gush, Chaps · AASM · St
 </div>
 
 <!--
-PREEMPT — THE #1 Q&A AMBUSH. Placement is load-bearing: this comes BEFORE
-Temporal appears. Said after, it sounds defensive.
-"There is always a gem for it, and usually four, and two are unmaintained." [LAUGH]
-"If you're not using them, some of you should leave now. I won't be offended." [LAUGH]
-Still your app, your Postgres, your reconciler, your phone at 3am.
--->
+PREEMPT — THE #1 Q&A AMBUSH. This must come BEFORE Temporal.
 
+"Now. Some of you have been quietly furious for about five
+ minutes, going: yes, and that's why Sidekiq Pro has Batches."
+
+"You're right. Let me put them all on the screen, because I'm not
+ building a strawman. And this is Ruby — there is always a gem
+ for it. Usually four. And two are unmaintained."
+   [LAUGH]
+
+▸ CLICK
+
+"These are good. Batches gives you fan-out and callbacks. Acidic
+ job gives you real step-level idempotency. Statesman gives you
+ an auditable state machine."
+
+"If you're not using them, some of you should leave now and go
+ use them. I won't be offended."
+   [LAUGH]
+
+"But notice what they do. Each one makes a step better."
+
+▸ CLICK
+
+"None of them fundamentally changes who owns keeping the process
+ alive. It's still your app. Your Postgres. Your reconciler.
+ Your phone at three a.m."
+
+"That's not a criticism. That's the question of this talk."
+-->
 ---
 layout: center
 class: text-center
@@ -574,6 +771,24 @@ Durable execution
 
 </div>
 
+<!--
+"So here's the question."
+
+"What if keeping the process alive was the runtime's job instead
+ of ours?"
+
+▸ CLICK
+
+"Not the business logic. The machinery. State, timers, retries,
+ resumption, history."
+
+▸ CLICK
+
+"That idea has a name. Durable execution."
+
+"You write the process as ordinary sequential code. And when the
+ machine running it dies, the process doesn't."
+-->
 ---
 layout: center
 ---
@@ -601,11 +816,22 @@ GA announced 1 Oct 2025 · temporal.io/changelog/ruby-sdk-generally-available
 </div>
 
 <!--
-"Which means for once we are not standing outside the window watching the
-Java people have a nice time." [LAUGH]
-Not comparing them. One case study, chosen for Ruby relevance.
--->
+"There are several systems doing this. Temporal. DBOS. Restate.
+ Inngest."
 
+"I'm not going to compare them. I picked one and looked at it
+ properly."
+
+▸ CLICK
+
+"And I picked Temporal for a boring reason that matters to this
+ room specifically. The Ruby SDK went generally available last
+ October. Fully supported, same features as Go and Java."
+
+"Which means, for once, we are not standing outside the window
+ watching the Java people have a nice time."
+   [LAUGH]
+-->
 ---
 
 # Three words
@@ -623,10 +849,26 @@ Not comparing them. One case study, chosen for Ruby relevance.
 <div v-click class="mt-10 opacity-60">Everything else is day two.</div>
 
 <!--
-THREE. NOT SEVEN. Signals / replay / history appear later, in context, where
-they're visible on screen. Dumping seven nouns here is where beginners leave.
--->
+"Three words. Then code. Only three."
 
+"Workflow. Decides what happens next. Your orchestration."
+
+▸ CLICK
+
+"Activity. Touches the outside world. Charges the card."
+
+▸ CLICK
+
+"Worker. The process you run that executes both."
+
+▸ CLICK
+
+"Everything else is day two."
+
+THREE, NOT SEVEN. Signals, replay and history come later, in
+context, where they're on screen. Dumping seven nouns here is
+where beginners give up.
+-->
 ---
 
 # The same process
@@ -649,21 +891,24 @@ end
 
 <!--
 CAREFUL — this is the slide where a talk becomes an ad.
-SAY IT: "Don't look at how short it is. Line count is a cheap argument and
-I refuse to make it." (PREEMPT: "that's just my code but shorter")
-Second click highlights wait_condition: that's the two-day wait. No scheduler,
-no re-enqueue, no status column. Doesn't hold a thread.
-SYNTAX VERIFIED against temporalio 1.6.0 on this machine: class compiles,
-signal registers as "warehouse_confirmed". Workflow.now / Workflow.random on the
-determinism slide also exist.
-ONE CAVEAT if challenged: this compiles but wouldn't RUN as-is — Temporal requires
-a start_to_close_timeout (or schedule_to_close_timeout) on each activity. Omitted
-here for slide legibility. If someone calls it out, that's a gift: "correct, and
-the fact that the runtime makes me declare a timeout per activity is exactly the
-kind of thing you don't get for free with perform_async."
 
+"Now, the same process, written against that runtime."
+
+"Don't look at how short it is. Line count is a cheap argument,
+ and I refuse to make it."
+
+▸ CLICK  (highlights wait_condition)
+
+"Look at one line. wait_condition. That's the two-day wait. No
+ scheduler. No re-enqueue. No status column. And it isn't holding
+ a thread — the runtime puts the workflow away and brings it back
+ when something happens."
+
+"That's the actual claim. Not fewer lines."
+
+EXPLAIN ONLY THAT LINE. Everything else gets decoded next slide.
+Syntax verified against gem temporalio 1.6.0.
 -->
-
 ---
 
 # You already wrote all of this
@@ -683,26 +928,26 @@ kind of thing you don't get for free with perform_async."
 </div>
 
 <!--
-*** THIS SLIDE IS THE BRIDGE. It is more persuasive than the code slide. ***
-The code alone is illegible to most of this room in 90 seconds. This decodes it
-by mapping every line back to something THEY wrote in the first half — so it
-lands as recognition, not as a new API.
+THE BRIDGE. More persuasive than the code slide. ~6 sec per row.
+Point, don't teach.
 
-Walk the rows briskly, ~6 seconds each. Don't teach the API, just point:
-  "The guards you added — the runtime already knows, it's in the history."
-  "The job that re-enqueued itself — that's the one line, wait_condition."
-  "The dedup table — that's a signal. Second one arrives, workflow's moved on."
-  "The status column doing double duty as a program counter — it's just where
-   the code is."
+"And before anyone has to decode that — you already wrote all of
+ this. Every line of it. Just in a different shape."
 
-THEN CLICK. The reconciler row appears with a dash.
-Say nothing for a beat. Then: "There isn't a row for that one."
+"The guards you added? The runtime already knows. It's in the
+ history."
+"The job that re-enqueued itself? That's the one line.
+ wait_condition."
+"The dedup table? That's a signal. Second one arrives, the
+ workflow has already moved on."
+"The status column doing double duty as a program counter? That's
+ just where the code is."
 
-TIMING: this slide costs ~30s net. You get most of it back because you no
-longer need to explain the code slide in detail — point at wait_condition, say
-the one line, and come here.
+▸ CLICK  (reconciler row appears, with a dash)
+   [BEAT]
+
+"There isn't a row for that one."
 -->
-
 ---
 layout: center
 class: text-center
@@ -710,6 +955,11 @@ class: text-center
 
 # Waiting became a language feature.
 
+<!--
+"Waiting became a language feature."
+
+One line. Say it, then move.
+-->
 ---
 layout: center
 class: text-center
@@ -736,17 +986,36 @@ Here: **the runtime**.
 </div>
 
 <!--
-*** PROTECT — EMOTIONAL CENTRE OF THE SECOND HALF. ***
-STAGING: point at yourself on "me" — small, not theatrical. Count the list off.
-Drop the hand for "the runtime."
-The room gets ME → RUNTIME. That's the whole talk in two words, delivered
-physically instead of asserted.
-Deliver "me" with ownership, not confession: you were competent and it still
-accumulated. That is the argument.
-PREEMPT "you designed the example to flatter Temporal" — a skeptic can argue
-line counts forever; nobody can argue the reconciler wasn't in your repo.
--->
+🔒 PROTECT. EMOTIONAL CENTRE OF THE SECOND HALF.
 
+"So here's the actual comparison, and it isn't about syntax."
+
+"Who owns keeping this process alive?"
+
+▸ CLICK
+
+"In the first half of this talk, the answer was: me."
+   ← POINT AT YOURSELF. Small gesture, not theatrical.
+
+▸ CLICK
+
+"My columns. My scheduler. My dedup table. My reconciler.
+ My phone."
+   ← Count them off.
+
+"And I want to be fair to myself. I did a decent job of it.
+ It worked."
+
+▸ CLICK
+
+"Here, the answer is: the runtime."
+   ← DROP THE HAND.
+
+"That's it. That's the entire trade being offered. Everything
+ else is detail."
+
+The room now has ME → RUNTIME. That's the talk in two words.
+-->
 ---
 layout: center
 class: text-center
@@ -757,13 +1026,16 @@ class: text-center
 <div class="mt-8 opacity-70">Same requirements. Same five failures. Both broken on purpose.</div>
 
 <!--
-*** DEMO GATE — YOU SHOULD BE HERE AT 15:00. ***
-*** THIS IS THE CENTRE OF GRAVITY. DO NOT COMPRESS IT. ***
-If behind, you already cut failure #4. If still behind, drop scenario B — but
-never rush what's on screen.
-"I'm not running this live at 6pm on a Sunday. You're welcome." [LAUGH]
--->
+⏱ 15:00 GATE. THE DEMO IS THE CENTRE OF GRAVITY — DO NOT RUSH IT.
+If you're behind, you already cut failure 4. Cut more BEFORE this,
+never compress what's on screen.
 
+"So I built the same process twice. Same requirements, same five
+ failures. Then I broke both on purpose."
+
+"I'm not running this live at six pm on a Sunday. You're welcome."
+   [LAUGH]
+-->
 ---
 
 # Kill the worker, right after payment
@@ -801,10 +1073,29 @@ Same outcome. Different answer to *who is responsible for it.*
 </div>
 
 <!--
-"...and I stay responsible for it every time someone adds a fourth step.
-Which they will. On a Friday." [LAUGH]
--->
+"First. Kill the worker, right after payment."
 
+"Sidekiq retries, hits my idempotency guards, and — this is the
+ important part — it works. It genuinely works. Because I wrote
+ the guards."
+
+"The recovery is correct because I made it correct. And I stay
+ responsible for that every time someone adds a fourth step.
+ Which they will. On a Friday."
+   [LAUGH]
+
+▸ CLICK
+
+"Temporal. Another worker picks up the execution and continues
+ after the payment activity. I didn't write recovery code."
+   [BEAT]
+"There is no recovery code to show you. That's the whole slide."
+
+▸ CLICK
+
+"Same outcome. Completely different answer to who is responsible
+ for it."
+-->
 ---
 
 # The callback fires twice
@@ -841,11 +1132,26 @@ The question is whether it was **you**, at 2am.
 </div>
 
 <!--
-"...a debate that will happen in a PR thread and will involve at least one
-person quoting the HTTP spec." [LAUGH]
-*** CUT THIS SLIDE if you reach it after 18:30. ***
--->
+✂ CUT THIS SLIDE if you reach it after 18:30.
 
+"Second. The warehouse fires the callback twice."
+
+"Sidekiq. Dedup table. Unique index. And a philosophical debate
+ about whether twice means a duplicate event or a retry. A debate
+ that will happen in a pull request thread, and will involve at
+ least one person quoting the HTTP spec."
+   [LAUGH]
+
+▸ CLICK
+
+"Temporal. Same signal arrives twice. The workflow is already
+ past that wait. Second one is a no-op."
+
+▸ CLICK
+
+"Not magic. Somebody still wrote that logic. The question is only
+ whether it was you. At two a.m. Under a deadline."
+-->
 ---
 layout: center
 class: text-center
@@ -872,11 +1178,26 @@ I built a fake clock to test my fake timer.
 </div>
 
 <!--
-[LAUGH] on the last line — funny AND technically the point.
-Waiting is either a thing the runtime understands, or a thing you simulate —
-and then have to simulate a second time in order to test.
--->
+"And the forty-eight hour wait. I'm not demoing that — and how
+ I would have demoed it is the finding."
 
+▸ CLICK
+
+"Temporal's test environment skips time. You ask it to jump
+ forty-eight hours, and it does."
+
+▸ CLICK
+
+"On the Sidekiq side, I had to fake the clock and fire the cron
+ by hand."
+
+▸ CLICK
+
+"I built a fake clock to test my fake timer."
+   [LAUGH]
+
+Funny AND technically the point. Let it land.
+-->
 ---
 
 # Who owns what
@@ -893,14 +1214,22 @@ and then have to simulate a second time in order to test.
 | Side effects | You | Activities |
 
 <!--
-Two rows matter.
-BUSINESS LOGIC DOESN'T MOVE — "and anyone who tells you otherwise is doing
-a webinar." [LAUGH]
-RECOVERY MOVES. That's the row you're buying.
-Then seed the beginner question so nobody has to raise a hand:
-"Activity touches the outside world. Workflow decides what happens next."
--->
+"So here's the only scoreboard I care about."
 
+[Walk the rows briskly. Then land the two that matter:]
+
+"Business logic doesn't move. Nothing here makes your domain
+ simpler. And anyone who tells you otherwise is doing a webinar."
+   [LAUGH]
+
+"And recovery moves. That's the row you're actually buying."
+
+THEN SEED THE BEGINNER QUESTION so nobody has to raise a hand:
+"Oh — and the question I get most, which is a good one. What's
+ the difference between a workflow and an activity? An activity
+ touches the outside world. A workflow decides what happens next.
+ That's the whole split."
+-->
 ---
 layout: center
 class: text-center
@@ -909,10 +1238,13 @@ class: text-center
 # Okay. What did we just buy?
 
 <!--
-*** OFF THE DEMO BY 20:00. ***
-That table made it look free. It is not.
--->
+⏱ 20:00 GATE. You should be off the demo by now.
 
+"So that's the good part."
+   [BEAT]
+"Now the honest part. Because that table made it look free, and
+ it is not."
+-->
 ---
 
 # Determinism
@@ -937,17 +1269,31 @@ Temporalio::Workflow.execute_activity(FetchOrder, id)
 </div>
 
 <!--
-SAY THE REPLAY SENTENCE EXACTLY:
-"The runtime reconstructs the workflow's state by replaying its recorded history
-against your workflow code — so your code has to produce the same decisions
-given the same history, every time."
-The loose version ("re-runs from the top") is memorable and slightly wrong;
-people in this room will go implement this and carry that model.
-"Matz optimised Ruby for developer happiness. This is the one corner optimised
-for a distributed systems paper." [LAUGH — one joke max here, don't undercut it]
-*** NEVER CUT THIS SLIDE. It's what makes the trade-off credible. ***
--->
+🔒 NEVER CUT THIS SLIDE. It's what makes the trade-off credible.
 
+"The one you hit on day one. Determinism."
+
+SAY THIS SENTENCE EXACTLY — the loose version is wrong and people
+here will go implement it:
+"Workflow code is not ordinary Ruby. The runtime reconstructs the
+ workflow's state by replaying its recorded history against your
+ workflow code. So your code has to produce the same decisions,
+ given the same history, every time."
+
+"Which means it can't ask the outside world anything mid-decision."
+
+▸ CLICK
+
+"Read that top block again. Time.now. Order.find. The two most
+ ordinary things in Rails. And inside a workflow, they're bugs."
+
+"Matz optimised Ruby for developer happiness. This is the one
+ corner of it that was optimised for a distributed systems paper."
+   [LAUGH — one joke max here. Don't undercut it.]
+
+"That's a new rule your whole team holds in their head, forever,
+ in a language where nothing else behaves that way."
+-->
 ---
 
 # The rest of the bill
@@ -971,11 +1317,38 @@ Reduces *application* complexity. Increases *system* complexity. That's a real t
 </div>
 
 <!--
-"...and binding.pry is not going to help you." [LAUGH]
-"'More honest' and 'less work' are different things." [LAUGH]
-Know which side of the trade you're on when you make it.
--->
+"And then the rest of the bill."
 
+▸ CLICK
+"Another runtime. It's not Rails, Postgres, Redis any more.
+ Someone operates this. Self-hosted, it's a real service with a
+ real datastore. Cloud, it's a bill and a vendor."
+
+▸ CLICK
+"Debugging changes shape. You're not reading a stack trace,
+ you're reading an execution history. Often better — you can see
+ exactly what happened to one order six weeks ago. But it is not
+ the skill your team has today. And binding.pry is not going to
+ help you."
+   [LAUGH]
+
+▸ CLICK
+"Versioning becomes first-class. Old executions are still in
+ flight when you deploy. Which is more honest than the shim with
+ the comment on it — but more honest and less work are different
+ things."
+   [LAUGH]
+
+▸ CLICK
+"And the one nobody puts on a slide. Your organisation now has
+ one more thing it has to understand. Every new hire. Every
+ incident. Every person you wake up."
+
+▸ CLICK
+"A technology can reduce your application complexity and increase
+ your system complexity at the same time. That's a legitimate
+ trade. It's just a trade — know which side you're on."
+-->
 ---
 
 # Where's your line?
@@ -1010,13 +1383,34 @@ Know which side of the trade you're on when you make it.
 </div>
 
 <!--
-Sidekiq isn't just adequate here, it's CORRECT. Adding a runtime would be making
-your life worse on purpose — "and there's a word for adding distributed systems
-you don't need, and it's usually on someone's promo packet." [LAUGH]
-Postgres is extremely good. Owning it is a real answer.
-*** If long, CUT THE POSTGRES PARAGRAPH — never the callback on the next slides. ***
--->
+"So. Where does that leave us."
 
+"If your work is short, independent, stateless, retryable as a
+ unit, fire and forget — that's a job. Sidekiq isn't just
+ adequate there, it's correct. And adding a runtime would be
+ making your own life worse on purpose."
+
+"There's a word for adding distributed systems you don't need.
+ It's usually on someone's promotion packet."
+   [LAUGH]
+
+▸ CLICK
+
+"But if it's multi-step. Long-running. Stateful. Waiting on
+ external events. Waiting on humans. Needing compensation. And —
+ this is the tell — if it keeps accumulating orchestration code
+ around it."
+
+"Then you may already be running a workflow engine. You're just
+ also the one maintaining it. At three a.m. Without documentation."
+
+✂ IF LONG, CUT THIS PARAGRAPH — never the ending:
+"And owning it is a real answer. Postgres is extremely good. A
+ state machine and a well-written reconciler have kept a lot of
+ serious companies alive. If your process fits in your head,
+ keeping it in Rails is the better engineering decision, and I'd
+ defend that too."
+-->
 ---
 layout: center
 class: text-center
@@ -1025,12 +1419,21 @@ class: text-center
 # An abstraction is useful right up until you start implementing the abstraction it was supposed to give you.
 
 <!--
-*** EXPERTS' TAKEAWAY. The thesis. ***
-Sidekiq gives you a job abstraction. It's a great abstraction.
-But if your app implements state, waiting, orchestration, recovery, timers,
-events — whatever you're holding stopped being a job a while ago.
--->
+🔒 THE EXPERTS' TAKEAWAY. The thesis. Say it slowly.
 
+"The idea I want to leave you with isn't about Temporal at all."
+
+"An abstraction is useful right up until you start implementing
+ the abstraction it was supposed to give you."
+   [BEAT]
+
+"Sidekiq gives you a job abstraction. It's a great abstraction.
+ But if your application has ended up implementing state, and
+ waiting, and orchestration, and recovery, and timers, and events
+ — then whatever you're holding stopped being a job a while ago."
+
+NO JOKE AFTER THIS.
+-->
 ---
 layout: center
 class: text-center
@@ -1055,13 +1458,30 @@ Is that still a job?
 </div>
 
 <!--
-Reconciler callback — UNDERPLAY IT. Dry nod, not a punchline. The argument is already
-won. You want "oh god, that's my codebase", NOT "haha legacy code am I right."
-The second one makes you the guy laughing at their repo and costs you the ending.
-Then the final question. THEN SILENCE. No joke. Let them answer it themselves.
-"I don't know for your system. I think you do. Thank you."
--->
+🔒 THE LANDING. DO NOT IMPROVISE THIS.
 
+"So. That job you thought of when I asked at the start. The one
+ some of you raised your hand for very fast."
+
+"Go and open it tomorrow."
+
+▸ CLICK
+
+"And if there's a comment on it with someone's name, and that
+ person doesn't work there any more —"
+   [BEAT — dry, underplayed. A nod, not a punchline.]
+"that's your answer."
+
+▸ CLICK
+
+"Is this still a job?"
+
+"I don't know, for your system. I think you do."
+
+   [SILENCE. COUNT THREE. DO NOT FILL IT.]
+
+THEN advance. Not before.
+-->
 ---
 layout: center
 class: text-center
@@ -1085,28 +1505,28 @@ Slides: anewbhav.dev/talks/sidekiq-workflow-engine
 </div>
 
 <!--
-*** DO NOT ADVANCE TO THIS SLIDE UNTIL THE SILENCE HAS DONE ITS WORK. ***
-Sequence:
-  1. "Is that still a job?" on screen.
-  2. "I don't know for your system. I think you do."
-  3. SILENCE. Count three. Let them sit in it.
-  4. THEN advance. "I'm Anubhav. That's where to find me — and honestly the
-     thing I most want out of tonight is to hear where you'd draw the line.
-     So: questions, arguments, war stories."
-  5. LEAVE THIS SLIDE UP FOR THE ENTIRE Q&A. It's how people photograph it,
-     and a blank/black screen during Q&A wastes five minutes of exposure.
+"Thank you."
 
-"Where would you draw the line?" at the top is doing real work — it opens Q&A
-with an invitation to disagree rather than "any questions?" (which gets silence
-in a room of 200). If nobody speaks in 5 seconds, take your own prepared one:
-"The question I get most is why not just build this ourselves —" and answer it.
+"I'm Anubhav. That's where to find me. And honestly, the thing I
+ most want out of tonight is to hear where you'd draw the line.
+ So: questions, arguments, war stories."
 
-FILL IN BEFORE PRESENTING: role/company, three handles, short link.
-Kill any line you don't want on a projector — an empty div is fine.
-Deliberately no personal email: don't put your inbox on a screen in front of
-200 people. Handles are enough.
+LEAVE THIS SLIDE UP FOR THE ENTIRE Q&A.
+
+IF SILENT FOR 5 SECONDS, take your own:
+"The question I get most is: why not just build this ourselves?"
+→ "You absolutely can. That's what the first half of this talk
+   was, and it worked. The question was never whether it's
+   possible. It's whether workflow execution semantics is
+   something you want your application team to own as
+   infrastructure. The signal isn't complexity — it's whether
+   that code is still growing."
+
+IF HOSTILE — verbatim, agree instantly:
+"The fact that Sidekiq lets you build all of that is a point in
+ its favour. The talk isn't that it can't. It's that at some
+ point you should notice you did."
 -->
-
 ---
 layout: default
 ---
@@ -1151,9 +1571,7 @@ taken from any employer's system. No affiliation with Temporal or any project li
 </div>
 
 <!--
-APPENDIX — do not present this slide. It exists so the published deck carries
-its sources.
-If you want to acknowledge it out loud, one line on the contact slide is enough:
-"Links and credits are on the last slide of the deck."
-All 13 URLs verified 200 on 6 Sep 2026.
+APPENDIX — DO NOT PRESENT.
+Exists so the published deck carries its sources.
+All URLs verified 200 on 6 Sep 2026.
 -->
