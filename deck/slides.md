@@ -1026,7 +1026,7 @@ class: text-center
 
 <div class="mt-10 text-base opacity-60">
 
-Slides + both implementations: anewbhav.dev/talks/sidekiq-workflow-engine
+Slides: anewbhav.dev/talks/sidekiq-workflow-engine
 
 </div>
 
