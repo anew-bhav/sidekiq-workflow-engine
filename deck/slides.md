@@ -254,8 +254,8 @@ Another column. Another thing you own.
 
 "Another column. Another thing you own."
 
-NOT DROPPABLE. Do not go back to a 'you can't use a transaction'
-strawman — the room would be right to reject it.
+*** NOT DROPPABLE. Never go back to the "you can't use a
+    transaction" strawman — the room would be right to reject it. ***
 -->
 ---
 layout: center
