@@ -42,6 +42,7 @@ Two days. Thread, timeout, killed by next deploy (~11 min away). "sleep 2.days. 
 
 **9 · Schedules itself** ▸1
 "All of you have written this. Some of you this week."
+**CONCEDE:** "And yes, you'd schedule one job for when you expect it, not poll hourly. That's better, I'd do that too. Either way the job is now two jobs, and where it resumes lives in a column."
 CLICK → **that's a timer.** Built waiting from a scheduler and a queue.
 
 **10 · PROGRAM COUNTER** ▸2 🔒**PROTECT**
@@ -49,10 +50,12 @@ Say it. **PAUSE.** CLICK → in your orders table, with an index on it. **PAUSE.
 CLICK → "Not saying the code got ugly. Saying we introduced a concept. Nobody decided to."
 
 **11 · Failure 3** ▸1
-Callback. Token, dedup, race. `nil:NilClass` = national anthem. CLICK.
+**CONCEDE FIRST:** "Dedup is easy. Unique index, five lines, done. Not the interesting bit."
+"The interesting bit is the callback that arrives BEFORE you commit the row." → `nil:NilClass` = national anthem. CLICK.
 
-**12 · Failure 4** ▸1 ✂️**CUT THIS FIRST IF BEHIND**
-Deploy mid-flight. CLICK → the TODO comment.
+**12 · Failure 4** ▸1 ✂️**WEAKEST — CUT FIRST, NO REGRET**
+Objection is correct: you add a new job class, you don't change args. Don't argue payload versioning.
+If kept, 10 seconds only: "In-flight processes outlive the code that started them. However you handle that, you're handling it." CLICK. Move on.
 
 **13 · Failure 5** ▸1
 Cancel. Stop a process that isn't running. CLICK → compensation, "week after finance asks a calm question."

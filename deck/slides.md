@@ -234,7 +234,15 @@ We had no way to wait, so we built waiting out of a scheduler and a queue.
 <!--
 "All of you have written this. Some of you wrote it this week. Some of you are
 looking at your laptop right now." [LAUGH]
-Hope-driven development, and it has a perform_in in it.
+
+CONCEDE IMMEDIATELY (someone is already thinking it):
+  "And yes, you'd schedule one job for when you actually expect it, not poll
+   every hour. That's better. I'd do that too."
+  "Either way, the job is now two jobs. And where it resumes lives outside
+   the code, in a column."
+
+That concession is what makes the program-counter line land as an observation
+instead of a setup. Do NOT defend the polling version.
 -->
 
 ---
@@ -278,9 +286,18 @@ class: text-center
 <Just :n="3" />
 
 <!--
-"...and then you get `undefined method for nil:NilClass`, which as we all know
+CONCEDE THE EASY PART FIRST:
+  "Dedup is easy. Unique index on the token, five lines, done. That's not the
+   interesting bit."
+  "The interesting bit is the callback that arrives BEFORE you've committed
+   the row."
+
+THEN: "...and you get `undefined method for nil:NilClass`, which as we all know
 is the national anthem of this ecosystem." [LAUGH]
 Fix it with a lock, or a retry, or a `sleep 0.5` you tell nobody about.
+
+Never imply dedup is hard. The room knows it isn't, and claiming otherwise
+costs you the next two minutes.
 -->
 
 ---
@@ -301,9 +318,16 @@ class: text-center
 <Just :n="4" />
 
 <!--
-Orders in the queue RIGHT NOW, halfway through, serialized with old arguments.
-Version the payload, drain the queue, or write the shim. [LAUGH on the date]
-*** THIS IS CUT #1 IF BEHIND AT 13:30. Reduce to one spoken line. ***
+*** WEAKEST OF THE FIVE. CUT THIS FIRST, AND WITHOUT REGRET. ***
+The objection is correct and someone will make it: you never change job args
+incompatibly, you add a new job class. Standard practice, and it works.
+
+IF YOU KEEP IT, do not argue about payload versioning. Say the one thing that
+is unarguably true and move on in ten seconds:
+  "In-flight processes outlive the code that started them. However you handle
+   that, you are handling it."
+
+Then go straight to failure five. Do not linger here.
 -->
 
 ---
